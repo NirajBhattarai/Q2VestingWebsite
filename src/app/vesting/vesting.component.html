@@ -1,0 +1,68 @@
+<div class="stake-section" id="staking">
+  <div class="container">
+    <div class="row">
+      <div *ngIf="!isConnected" class="connect-wallet-wrapper py-4">
+        <div class="connect-wallet container">
+          <button class="btn custom-btn px-4" (click)="connectToMetaMask()">
+            Connect To Wallet
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="isConnected" class="stake-wrapper">
+        <div class="container">
+          <div class="account-balance row m-0">
+            <div class="col-md-6">
+              <div class="stake-3 bg-grey">
+                <div class="font-xl mb-2">UnLock Amount</div>
+
+                <div class="inputDatas">
+                  <div class="row">
+                    <div class="col-12 col-md-9">
+                      <div class="col-12 col-md-9">
+                        <button
+                          *ngIf="unLockAmountShow"
+                          class="btn px-4 custom-btn"
+                        >
+                          {{ unLockAmount }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="stake-3 bg-grey">
+                <div class="font-xl mb-2">Unlock Time</div>
+
+                <div class="inputDatas">
+                  <div class="row">
+                    <div class="col-12 col-md-9">
+                      <button
+                        *ngIf="unLockTimeShow"
+                        class="btn px-4 custom-btn"
+                      >
+                        {{ unLockTime }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="stake-3 bg-grey">
+                <div class="font-xl mb-4">WithDraw Tokens</div>
+                <button (click)="unLockQ2()" class="btn px-4 custom-btn">
+                  UnlockQ2
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

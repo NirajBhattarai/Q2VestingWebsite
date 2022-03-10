@@ -1,0 +1,144 @@
+$body-bg-first-color: #191724;
+$body-bg-second-color: #070512;
+$body-text-color: #d5bd84;
+$body-text-light-color: #ffffff;
+$accordian-hover-text-color: #38004d;
+
+.navbar {
+  background-color: $body-bg-first-color;
+  padding: 15px 15px 15px 15px;
+  font-family: "Bentto-PersonalUse";
+  .navbar-brand {
+    width: 22%;
+    h1 {
+      color: $body-text-color;
+      font-size: 33px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+  }
+
+  #menuItems {
+    justify-content: center;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 400;
+    min-height: 42px;
+  }
+
+  .joinDiscordbutton {
+    width: 20%;
+    button {
+      margin-left: -70px;
+    }
+  }
+
+  button.btn.btn-lg.btn-outline-dark {
+    margin-right: auto;
+  }
+  a.nav-link {
+    color: $body-text-color;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 1px;
+    margin-right: 10px;
+  }
+
+  a.nav-link:hover {
+    border-top: 2px solid $body-text-color;
+    border-bottom: 2px solid $body-text-color;
+    transition: calc(300 * 1ms);
+    transition-timing-function: cubic-bezier(0.42, 0.01, 0.58, 1);
+  }
+
+  a {
+    i.fa.fa-twitter,
+    i.fa.fa-instagram {
+      font-size: 32px;
+      color: $body-text-color;
+      margin: 0px 15px 0px 0px;
+    }
+  }
+  ul.navbar-nav.mb-2.mb-lg-0 {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  button.btn.btn-lg.btn-outline-dark {
+    border-color: $body-text-color;
+    padding: 11px 40px 5px 40px;
+    border-radius: 23px;
+    border: 3px solid $body-text-color;
+    color: $body-text-color;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 20px;
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  button.btn.btn-lg.btn-outline-dark:hover {
+    background: $body-text-color;
+    color: $body-bg-first-color;
+  }
+
+  i.fa.fa-instagram,
+  i.fa.fa-twitter {
+    font-size: 40px;
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .navbar {
+    .joinDiscordbutton {
+      //   width: 20%;
+      margin-left: auto;
+      margin-right: auto;
+      button {
+        margin-left: 0px;
+      }
+    }
+
+    #addButtons {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    li.nav-item {
+      width: 100%;
+      background-color: $body-text-color;
+      a {
+        color: $body-bg-first-color;
+      }
+    }
+
+    li.nav-item:hover {
+      background-color: $body-bg-first-color;
+    }
+
+    a.nav-link:hover {
+      border: none !important;
+      color: $body-text-color !important;
+    }
+  }
+}
+
+.navbar-toggler {
+  background: transparent;
+  line-height: 0px;
+  padding-top: 0px;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  img {
+    width: 30px;
+  }
+
+  i.fa.fa-bars {
+    color: #008fa0;
+  }
+}

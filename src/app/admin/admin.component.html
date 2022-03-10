@@ -1,0 +1,59 @@
+<div class="stake-section" id="staking">
+  <div class="container">
+    <div class="row">
+      <div *ngIf="!isConnected" class="connect-wallet-wrapper py-4">
+        <div class="connect-wallet container">
+          <button class="btn custom-btn px-4" (click)="connectToMetaMask()">
+            Connect To Wallet
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="isConnected" class="stake-wrapper">
+        <div class="container">
+          <div class="account-balance row m-0">
+            <div class="col-md-12">
+              <div class="stake-3 bg-grey">
+                <div class="font-2xl mb-4"></div>
+                <div class="font-xl mb-2">Add Investor</div>
+
+                <div class="inputDatas">
+                  <div class="row">
+                    <div class="col-12 col-md-10">
+                      <input
+                        type="text"
+                        class="form-control"
+                        autocomplete="0"
+                        placeholder="Investor Account Address"
+                        (input)="changeStakingAmount($event)"
+                      />
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        autocomplete="0"
+                        placeholder="UnLockTime"
+                        (input)="changeStakingAmount($event)"
+                      />
+                      <input
+                        type="text"
+                        class="form-control"
+                        autocomplete="0"
+                        placeholder="TokenAmount"
+                        (input)="changeStakingAmount($event)"
+                      />
+                    </div>
+                    <div class="col-12 col-md-2"></div>
+                  </div>
+                </div>
+                <button (click)="stake()" class="btn px-4 custom-btn">
+                  Add
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

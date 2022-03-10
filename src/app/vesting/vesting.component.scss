@@ -1,0 +1,155 @@
+$body-bg-first-color: #191724;
+$body-bg-second-color: #070512;
+$body-text-color: #d5bd84;
+$body-text-light-color: #ffffff;
+$accordian-hover-text-color: #38004d;
+
+.stake-section {
+  min-height: calc(95vh - 20px) !important;
+  font-family: "Bentto-PersonalUse";
+  // background-image: url("../../assets/images/background-particles.jpg");
+  color: $body-text-color;
+  h1 {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 56px;
+    line-height: 1.16;
+    font-weight: 700;
+    padding: 50px 0px 50px 0px;
+  }
+
+  .connect-wallet {
+    margin-top: 8rem;
+    padding: 4rem;
+    border-radius: 1.25rem;
+    text-align: center;
+    // background-color: $body-bg-first-color;
+
+    button {
+      background-color: $body-text-color;
+      padding: 15px;
+      color: $body-bg-first-color;
+      font-family: "Abel-Regular";
+      font-size: 25px;
+      font-weight: 800;
+    }
+  }
+
+  .stake-wrapper {
+    padding-top: 8rem;
+    padding-bottom: 2rem;
+  }
+
+  .account-balance {
+    .stake-3 {
+      background-color: $body-text-color;
+      border-radius: 0.5rem;
+      text-align: center;
+      padding: 2rem;
+      font-weight: 800;
+      color: $body-bg-first-color;
+      height: 100%;
+      font-family: "Abel-Regular";
+    }
+  }
+
+  .font-3xl {
+    font-size: 2rem;
+    line-height: 2.25rem;
+  }
+
+  .font-2xl {
+    font-size: 1.75rem;
+    line-height: 2rem;
+  }
+
+  .font-xl {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+
+  .font-xl-b {
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+  }
+
+  .bg-grey {
+    background-color: #d1d5db;
+    color: #4b5563;
+  }
+
+  .custom-btn {
+    background-color: $body-bg-first-color;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: $body-text-light-color;
+    font-weight: 400;
+    margin: 10px 5px 0px 0px;
+    margin-right: 15px;
+  }
+
+  #cancelData {
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: $body-bg-first-color;
+    font-weight: 600;
+    margin: 10px 5px 0px 0px;
+    margin-left: 15px;
+  }
+
+  #cancelData:hover {
+    color: $body-text-light-color;
+    background-color: $body-bg-first-color;
+    font-weight: 400;
+  }
+
+  .disconnect-btn {
+    background-color: $body-bg-first-color;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: $body-text-light-color;
+    font-weight: 400;
+  }
+
+  .inputDatas {
+    input {
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 6px;
+      padding: 7px;
+      font-size: 20px;
+      font-weight: 600;
+      color: $body-bg-first-color;
+      width: 70%;
+    }
+
+    .custom-btn-max {
+      background-color: $body-bg-first-color;
+      font-size: 20px;
+      letter-spacing: 1px;
+      color: $body-text-light-color;
+      font-weight: 400;
+      margin: 0px 5px 0px -55px;
+    }
+  }
+}
+
+//   mobile view
+@media only screen and (max-width: 600px) {
+  .stack-section {
+    .account-balance {
+      .stake-3 {
+        height: 95%;
+      }
+    }
+
+    .inputDatas {
+      input {
+        margin-bottom: 10px;
+      }
+      .custom-btn-max {
+        margin: 10px 0px 0px 0px;
+      }
+    }
+  }
+}

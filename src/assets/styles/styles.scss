@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+@font-face {
+  font-family: "Bentto-PersonalUse";
+  src: url("../fonts/Bentto-PersonalUse.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Abel-Regular";
+  src: url("../fonts/Abel-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins-Bold";
+  src: url("../fonts/Poppins-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins-Light";
+  src: url("../fonts/Poppins-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins-Regular";
+  src: url("../fonts/Poppins-Regular.ttf") format("truetype");
+}
+
+body {
+  font-family: "Abel-Regular", Arial, Helvetica, sans-serif;
+  background-image: url("../images/background-particles.jpg") !important;
+}
+
+.owl-carousel {
+  .owl-prev,
+  .owl-next {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: transparent !important;
+    font-size: 3rem !important;
+  }
+
+  .owl-prev {
+    left: -2rem !important;
+  }
+
+  .owl-next {
+    right: -2rem !important;
+  }
+}
