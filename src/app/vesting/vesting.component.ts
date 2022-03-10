@@ -340,7 +340,6 @@ export class VestingComponent implements OnInit {
   }
 
   checkUnlockTime(address: any) {
-    console.log(address);
     this.vestingMethods
       .unLockTime(address)
       .call()
@@ -364,7 +363,9 @@ export class VestingComponent implements OnInit {
     return false;
   }
 
-  unLockQ2() {}
+  unLockQ2() {
+    this.vestingMethods.unlockQ2().send({ from: this.userAddress });
+  }
 
   ngOnInit(): void {}
 }
