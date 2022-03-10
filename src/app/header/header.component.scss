@@ -142,3 +142,65 @@ $accordian-hover-text-color: #38004d;
     color: #008fa0;
   }
 }
+
+.wallet-acc{
+  align-items: center;
+  font-family: "Poppins-Regular";
+  color: $body-text-color;
+  background-color: #ffffff65;
+  padding-left:1rem;
+  border-radius: 1rem;
+
+  span{
+    font-size: 1rem;
+    font-weight: 700;
+    margin-right:0.5rem;
+  }
+  
+  button{
+    color: $body-text-color;
+    border-radius: 1rem;
+    background-color: #636060;
+    font-weight: 700;
+    padding: 0.5rem 1.5rem;
+    &:focus, &:hover{
+      outline: none;
+      box-shadow: none;
+      border: 1px solid rgb(151, 151, 151);
+    }
+  }
+
+  .network-icon{
+    margin-left: 0.25rem;
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-flex;
+  }
+}
+
+.network-select{
+  background-color: #ffffff65;
+  border-radius: 1rem;
+  margin-right: 1rem;
+  #networkDropdown{
+    &:hover{
+      border: none;
+    }
+  }
+  &:hover{
+    .dropdown-menu{
+      display: block;
+    }
+  }
+
+  .dropdown-menu{
+    border-radius: 1rem;
+    li{
+      margin: 0 0.25rem;
+    }
+  }
+  
+}
+
+
+

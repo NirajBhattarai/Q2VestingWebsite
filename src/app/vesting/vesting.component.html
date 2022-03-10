@@ -12,14 +12,13 @@
       <div *ngIf="isConnected" class="stake-wrapper">
         <div class="container">
           <div class="account-balance row m-0">
-            <div class="col-md-6">
+            <div class="col-md-6 mb-4">
               <div class="stake-3 bg-grey">
                 <div class="font-xl mb-2">UnLock Amount</div>
 
                 <div class="inputDatas">
-                  <div class="row">
-                    <div class="col-12 col-md-9">
-                      <div class="col-12 col-md-9">
+                  <div class="row justify-content-center">
+                      <div class="col-12 col-md-9 mx-auto">
                         <button
                           *ngIf="unLockAmountShow"
                           class="btn px-4 custom-btn"
@@ -27,18 +26,17 @@
                           {{ unLockAmount }}
                         </button>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6 mb-4">
               <div class="stake-3 bg-grey">
                 <div class="font-xl mb-2">Unlock Time</div>
 
                 <div class="inputDatas">
-                  <div class="row">
+                  <div class="row justify-content-center">
                     <div class="col-12 col-md-9">
                       <button
                         *ngIf="unLockTimeShow"
@@ -52,9 +50,9 @@
               </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-12 mb-4">
               <div class="stake-3 bg-grey">
-                <div class="font-xl mb-4">WithDraw Tokens</div>
+                <div class="font-xl mb-2">WithDraw Tokens</div>
                 <button (click)="unLockQ2()" class="btn px-4 custom-btn">
                   UnlockQ2
                 </button>

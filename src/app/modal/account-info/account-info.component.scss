@@ -1,0 +1,63 @@
+.modal-header{
+    .modal-title{
+        font-size: 1.1rem;
+    }
+    .btn-close{
+        color: #6b6b6b;
+        font-size: 0.9rem;
+        &:hover, &:focus{
+            box-shadow: none;
+            outline: none;
+        }
+    }
+}
+
+
+.info{
+    border: 1px solid #b1b1b1;
+    padding: 1.25rem;
+    border-radius: 1.5rem;
+
+    .custom-btn{
+        background:transparent;
+        border: 2px solid #b1b1b1;
+        color: #99875d;
+        border-radius: 2rem;
+        font-size: 0.85rem;
+        &:hover{
+            text-decoration: underline;
+            border: 2px solid #707070;
+        }
+    }
+    
+    .acc-address{
+        font-size: 1.4rem;
+        font-weight: 600;
+        .network-icon{
+            border-radius: 50%;
+            overflow: hidden;
+            display: inline-flex;
+        }
+    }
+    
+    .linked-network{
+        font-size: 0.9rem;
+        color: #676767;
+    }
+    
+    .acc-links{
+        a{
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #676767;
+            &:hover{
+                color: #474747;
+            }
+        }
+    }
+
+}
+
+.modal-footer {
+    background-color: #ebebeb;
+}

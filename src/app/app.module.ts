@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { VestingComponent } from './vesting/vesting.component';
 import { AdminComponent } from './admin/admin.component';
+import { AccountInfoComponent } from './modal/account-info/account-info.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AdminComponent } from './admin/admin.component';
     DashboardComponent,
     VestingComponent,
     AdminComponent,
+    AccountInfoComponent,
   ],
   imports: [
     BrowserModule,
