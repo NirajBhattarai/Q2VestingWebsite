@@ -131,6 +131,16 @@ $accordian-hover-text-color: #38004d;
       font-weight: 400;
       margin: 0px 5px 0px -55px;
     }
+
+    input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
   }
 }
 
@@ -151,5 +161,12 @@ $accordian-hover-text-color: #38004d;
         margin: 10px 0px 0px 0px;
       }
     }
+  }
+}
+
+
+.unlocktimeinp{
+  &::placeholder{
+    color: #08004d !important;
   }
 }

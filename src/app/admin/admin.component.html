@@ -14,39 +14,35 @@
           <div class="account-balance row m-0">
             <div class="col-md-12">
               <div class="stake-3 bg-grey">
-                <div class="font-2xl mb-4"></div>
-                <div class="font-xl mb-2">Add Investor</div>
+                <div class="font-2xl mb-2">Add Investor</div>
 
                 <div class="inputDatas">
-                  <div class="row">
-                    <div class="col-12 col-md-10">
-                      <input
-                        type="text"
-                        class="form-control"
-                        autocomplete="0"
-                        placeholder="Investor Account Address"
-                        (input)="changeStakingAmount($event)"
-                      />
+                  <div class="col-md-10 mx-auto">
+                    <input
+                      type="text"
+                      class="form-control px-3 mb-3"
+                      autocomplete="0"
+                      placeholder="Investor Account Address"
+                      (keyup)="changeInvestorAddress($event)"
+                    />
 
-                      <input
-                        type="text"
-                        class="form-control"
-                        autocomplete="0"
-                        placeholder="UnLockTime"
-                        (input)="changeStakingAmount($event)"
-                      />
-                      <input
-                        type="text"
-                        class="form-control"
-                        autocomplete="0"
-                        placeholder="TokenAmount"
-                        (input)="changeStakingAmount($event)"
-                      />
-                    </div>
-                    <div class="col-12 col-md-2"></div>
+                    <input
+                      type="datetime-local"
+                      class="form-control mb-3 px-3 unlocktimeinp"
+                      autocomplete="0"
+                      (change)="changeUnlockTime($event)"
+                    />
+                    <input
+                      type="number"
+                      class="form-control mb-3 px-3"
+                      autocomplete="0"
+                      min="1"
+                      placeholder="TokenAmount"
+                      (keyup)="changeUnStakingAmount($event)"
+                    />
                   </div>
                 </div>
-                <button (click)="stake()" class="btn px-4 custom-btn">
+                <button (click)="stake()" class="btn px-5 custom-btn">
                   Add
                 </button>
               </div>

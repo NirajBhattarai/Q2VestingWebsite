@@ -263,6 +263,8 @@ export class AdminComponent implements OnInit {
 
   public unLockTime: any;
   public unLockTimeShow: boolean = false;
+  public investorAddress: any;
+  public unlockTimeInput: any;
 
   constructor() {}
 
@@ -350,10 +352,10 @@ export class AdminComponent implements OnInit {
       });
   }
 
-  checkUnlockTime(address: any) {
-    console.log(address);
+  checkUnlockTime(unlockTime: any) {
+    console.log(unlockTime);
     this.vestingMethods
-      .unLockTime(address)
+      .unLockTime(unlockTime)
       .call()
       .then((resp: any) => {
         console.log(resp);
@@ -415,7 +417,15 @@ export class AdminComponent implements OnInit {
   }
 
   changeUnStakingAmount(value: any) {
-    this.unStakingAmount = Number(value.data);
+    this.unStakingAmount = Number(value.target.value);    
+  }
+
+  changeUnlockTime(unlockDate: any) {
+    this.unlockTimeInput = new Date(unlockDate.target.value).getTime() / 1000;
+  }
+
+  changeInvestorAddress(address: any) {
+    this.investorAddress = address.target.value;    
   }
 
   selectMaxUnStake() {
