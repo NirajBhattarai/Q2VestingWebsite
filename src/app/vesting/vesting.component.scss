@@ -131,6 +131,19 @@ $accordian-hover-text-color: #38004d;
       margin: 0px 5px 0px -55px;
     }
   }
+
+  #timer{
+    button{
+      font-size: 20px;
+      color: $body-text-light-color;
+      padding-top: 0;
+      padding-bottom: 0;
+      &:hover, &:focus{
+        box-shadow: none;
+        outline: none;
+      }
+    }
+  }
 }
 
 //   mobile view

@@ -23,7 +23,7 @@
                           *ngIf="unLockAmountShow"
                           class="btn px-4 custom-btn"
                         >
-                          {{ unLockAmount }}
+                          {{ (unLockAmount / 1e18)+' Q2'}}
                         </button>
                       </div>
                   </div>
@@ -40,9 +40,16 @@
                     <div class="col-12 col-md-9">
                       <button
                         *ngIf="unLockTimeShow"
-                        class="btn px-4 custom-btn"
+                        class="btn custom-btn"
                       >
-                        {{ unLockTime }}
+                        <div class="counter-timing-section">
+                          <div id="timer">
+                            <button class="btn">{{timeLeft.days}}<span>Days</span></button>
+                            <button class="btn">{{timeLeft.hours}}<span>Hrs</span></button>
+                            <button class="btn">{{timeLeft.minutes}}<span>Min</span></button>
+                            <button class="btn">{{timeLeft.seconds}}<span>Sec</span></button>
+                          </div>
+                        </div>
                       </button>
                     </div>
                   </div>
