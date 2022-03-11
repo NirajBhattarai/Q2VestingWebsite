@@ -134,12 +134,14 @@ $accordian-hover-text-color: #38004d;
 
   #timer{
     button{
-      font-size: 20px;
-      color: $body-text-light-color;
-      padding-top: 0;
-      padding-bottom: 0;
+      font-size: 1.5rem;
+      line-height: 1.75rem;
+      color: $body-bg-second-color;
+      font-weight: 600;
+      padding: 0 0.5rem;
       &:hover, &:focus{
         box-shadow: none;
+        cursor: default;
         outline: none;
       }
     }

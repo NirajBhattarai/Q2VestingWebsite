@@ -375,11 +375,12 @@ export class VestingComponent implements OnInit {
   }
 
   makeTimer() {
-    var endTime: any = new Date(this.unLockTime*1000);
-    endTime = Date.parse(endTime) / 1000;
-
     var now: any = new Date();
     now = Date.parse(now) / 1000;
+
+    if(this.unLockTime > now){
+    var endTime: any = new Date(this.unLockTime*1000);
+    endTime = Date.parse(endTime) / 1000;
 
     var timeLeft: any = endTime - now;
 
@@ -407,5 +408,13 @@ export class VestingComponent implements OnInit {
       minutes: minutes,
       seconds: seconds,
     };
+  } else {
+    this.timeLeft = {
+      days: '0',
+      hours: '0',
+      minutes: '0',
+      seconds: '0',
+    };
   }
+}
 }

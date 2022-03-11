@@ -16,7 +16,6 @@ export class HeaderComponent implements OnInit {
 
   open() {
     const modalRef = this.modalService.open(AccountInfoComponent,{centered:true,animation:false});
-    modalRef.componentInstance.name = 'World';
   }
   
 }

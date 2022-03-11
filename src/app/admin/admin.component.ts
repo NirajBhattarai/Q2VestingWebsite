@@ -265,6 +265,7 @@ export class AdminComponent implements OnInit {
   public unLockTimeShow: boolean = false;
   public investorAddress: any;
   public unlockTimeInput: any;
+  public invAddressTouched:boolean = false;
 
   constructor() {}
 
@@ -421,11 +422,12 @@ export class AdminComponent implements OnInit {
   }
 
   changeUnlockTime(unlockDate: any) {
-    this.unlockTimeInput = new Date(unlockDate.target.value).getTime() / 1000;
+    this.unlockTimeInput = Number(unlockDate.target.value);  
   }
 
   changeInvestorAddress(address: any) {
-    this.investorAddress = address.target.value;    
+    this.invAddressTouched=true;
+    this.investorAddress = address.target.value;   
   }
 
   selectMaxUnStake() {
@@ -442,6 +444,10 @@ export class AdminComponent implements OnInit {
     this.stakingMethods
       .stakeTokens(this.stakingAmount)
       .send({ from: window.web3.currentProvider.selectedAddress });
+  }
+
+  isInvestorAddressValid(){
+    return Web3.utils.isAddress(this.investorAddress);
   }
 
   ngOnInit(): void {}
