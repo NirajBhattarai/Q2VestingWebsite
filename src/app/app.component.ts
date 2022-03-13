@@ -7,7 +7,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'bebop-staking';
+  title = 'q2-vesting';
 
   ngOnInit(): void {}
 }

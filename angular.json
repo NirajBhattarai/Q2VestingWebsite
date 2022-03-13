@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "bebop-staking": {
+    "q2-vesting": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/bebop-staking",
+            "outputPath": "dist/q2-vesting",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "bebop-staking:build:production"
+              "browserTarget": "q2-vesting:build:production"
             },
             "development": {
-              "browserTarget": "bebop-staking:build:development"
+              "browserTarget": "q2-vesting:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "bebop-staking:build"
+            "browserTarget": "q2-vesting:build"
           }
         },
         "test": {
@@ -105,5 +105,5 @@
       }
     }
   },
-  "defaultProject": "bebop-staking"
+  "defaultProject": "q2-vesting"
 }

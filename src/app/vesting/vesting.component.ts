@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import Web3 from 'web3';
-import Swal from 'sweetalert2';
 import { SweetAlertDatas } from '../constants/SweetalertDatas';
 declare var $: any;
 
@@ -242,18 +241,7 @@ export class VestingComponent implements OnInit {
   public showErrorMessage: boolean = false;
   public errorMessage: string = '';
   public disableMintButton: boolean = false;
-  public stakingMethods: any;
-  public erc721Methods: any;
-  public nftBalance: any;
-  public stakingAmount: number = 0;
-  public allTokenApproved: any = false;
-  public approvedAddress: any = [];
-  public noDatas: string = SweetAlertDatas.nullStakingData;
-  public datas: string = SweetAlertDatas.stakingData;
-  public sweetAlertBackgroundColor: string = '#191724';
-  public stakedTokenAmount: any = 0;
-  public unStakingAmount: any = 0;
-  public earning: any = 0;
+   
 
   public vestingMethods: any;
 
@@ -313,12 +301,6 @@ export class VestingComponent implements OnInit {
           this.isNetworkError = true;
         }
       });
-  }
-
-  async checkERC721Balance() {
-    this.nftBalance = await this.erc721Methods
-      .balanceOf(window.web3.currentProvider.selectedAddress)
-      .call();
   }
 
   setWalletAddress() {
