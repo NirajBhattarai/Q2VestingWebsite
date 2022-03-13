@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Web3 from 'web3';
-import { SweetAlertDatas } from '../constants/SweetalertDatas';
+import { BlockchainService } from '../service/blockchain.service';
 declare var $: any;
 
 declare const window: any;
@@ -230,130 +230,38 @@ const vestingAbi = [
 })
 export class VestingComponent implements OnInit {
   public timeLeft: any = { days: '', hours: '', minutes: '', seconds: '' };
-  public userAddress: any;
-  readonly vestingContractAddress: any =
-    '0xb1890e2C8b4c726306F5F295F86117df2EfA302b';
   public isConnected = false;
-  public isNetworkError = false;
   public walletAddress = '';
-  public showSuccessMessage: boolean = false;
-  public successMessage: string = '';
-  public showErrorMessage: boolean = false;
-  public errorMessage: string = '';
-  public disableMintButton: boolean = false;
-   
-
-  public vestingMethods: any;
-
   public unLockAmount: any;
   public unLockAmountShow: boolean = false;
 
   public unLockTime: any;
   public unLockTimeShow: boolean = false;
 
-  constructor() {}
-
-  loadVestingContract() {
-    return new window.web3.eth.Contract(
-      vestingAbi,
-      this.vestingContractAddress
-    );
-  }
+  constructor(private blockchainService: BlockchainService) {}
 
   async connectToMetaMask() {
-    if (window.ethereum) {
-      await window.ethereum.request({ method: 'eth_requestAccounts' }).then(
-        (response: any) => {
-          this.isConnected = true;
-          this.getChainId(response);
-        },
-        (error: any) => {
-          this.isConnected = false;
-        }
-      );
-    } else {
-      return;
-    }
-  }
-
-  async getChainId(userAddresses: any) {
-    window.ethereum
-      .request({ method: 'eth_chainId' })
-      .then(async (response: any) => {
-        console.log(response);
-        if (response === chainAddress) {
-          this.userAddress = userAddresses[0];
-          console.log(this.userAddress);
-          this.checkWalletConnected();
-          this.vestingMethods = await (
-            await this.loadVestingContract()
-          ).methods;
-
-          this.checkUnlockAmount(this.userAddress);
-          this.checkUnlockTime(this.userAddress);
-          this.setWalletAddress();
-
-          this.isNetworkError = false;
-
-          this.isConnected = userAddresses.length == 0 ? false : true;
-        } else if (userAddresses.length > 0) {
-          this.isConnected = userAddresses.length == 0 ? false : true;
-          this.isNetworkError = true;
-        }
-      });
-  }
-
-  setWalletAddress() {
-    let responseString = window.web3.currentProvider.selectedAddress;
-    let splittedAddress =
-      responseString.substring(0, 7) +
-      '...' +
-      responseString.substring(responseString.length - 7);
-    this.walletAddress = splittedAddress;
-  }
-
-  checkUnlockAmount(address: any) {
-    this.vestingMethods
-      .unLockAmount(address)
-      .call()
-      .then((resp: any) => {
-        this.unLockAmount = Number(resp);
-        this.unLockAmountShow = true;
-      });
-  }
-
-  checkUnlockTime(address: any) {
-    this.vestingMethods
-      .unLockTime(address)
-      .call()
-      .then((resp: any) => {
-        console.log(resp);
-        this.unLockTime = Number(resp);
-        this.unLockTimeShow = true;
-      });
+    this.blockchainService.connectToMetaMask();
   }
 
   async disconnect() {
-    this.isConnected = false;
-  }
-
-  checkWalletConnected() {
-    if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-      window.ethereum.enable();
-      return true;
-    }
-    return false;
+    this.blockchainService.disconnect();
   }
 
   unLockQ2() {
-    this.vestingMethods.unlockQ2().send({ from: this.userAddress });
+    this.blockchainService.unLockQ2();
   }
 
   ngOnInit(): void {
     setInterval(() => {
       this.makeTimer();
     }, 1000);
+    this.blockchainService.getIsConnected().subscribe(res=>this.isConnected=res);
+    this.blockchainService.getWalletAddress().subscribe(res=>this.walletAddress = res); 
+    this.blockchainService.getUnlockAmount().subscribe(res=>this.unLockAmount=res);
+    this.blockchainService.getUnlockAmountShown().subscribe(res=>this.unLockAmountShow=res);
+    this.blockchainService.getUnlockTime().subscribe(res=>this.unLockTime=res);
+    this.blockchainService.getUnlockTimeShown().subscribe(res=>this.unLockTimeShow=res);
   }
 
   makeTimer() {

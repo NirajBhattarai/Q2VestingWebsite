@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import Web3 from 'web3';
-import Swal from 'sweetalert2';
-import { SweetAlertDatas } from '../constants/SweetalertDatas';
-import { BlockchainService } from '../service/blockchain.service';
 declare var $: any;
 
 declare const window: any;
-const chainAddress = '0xa869';
+const chainAddress = '0x4';
 
 const vestingAbi = [
   {
@@ -225,50 +223,29 @@ const vestingAbi = [
   },
 ];
 
-@Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+@Injectable({
+  providedIn: 'root'
 })
-export class AdminComponent implements OnInit {
-
+export class BlockchainService {
+  public timeLeft: any = { days: '', hours: '', minutes: '', seconds: '' };
   public userAddress: any;
-  public scodacBalance: any = 0;
   readonly vestingContractAddress: any =
-    '0xc85742d8c768d2cB3bDE61E08CCf282ed8F10032';
-  public isConnected = false;
+    '0xb1890e2C8b4c726306F5F295F86117df2EfA302b';
+  public isConnected = new BehaviorSubject<boolean>(false);
   public isNetworkError = false;
-  public walletAddress = '';
-  public showSuccessMessage: boolean = false;
-  public successMessage: string = '';
-  public showErrorMessage: boolean = false;
-  public errorMessage: string = '';
-  public disableMintButton: boolean = false;
-  public stakingMethods: any;
-  public erc721Methods: any;
-  public nftBalance: any;
-  public stakingAmount: number = 0;
-  public allTokenApproved: any = false;
-  public approvedAddress: any = [];
-  public noDatas: string = SweetAlertDatas.nullStakingData;
-  public datas: string = SweetAlertDatas.stakingData;
-  public sweetAlertBackgroundColor: string = '#191724';
-  public stakedTokenAmount: any = 0;
-  public unStakingAmount: any = 0;
-  public earning: any = 0;
+  public walletAddress = new BehaviorSubject<string>("");   
 
   public vestingMethods: any;
 
-  public unLockAmount: any;
-  public unLockAmountShow: boolean = false;
+  public unLockAmount = new BehaviorSubject<number>(0);
+  public unLockAmountShow = new BehaviorSubject<boolean>(false);
 
-  public unLockTime: any;
-  public unLockTimeShow: boolean = false;
-  public investorAddress: any;
-  public unlockTimeInput: any;
-  public invAddressTouched:boolean = false;
+  public unLockTime = new BehaviorSubject<any>(0);
+  public unLockTimeShow = new BehaviorSubject<boolean>(false);
 
-  constructor(private blockchainService:BlockchainService) {}
+  public currentNetwork = new BehaviorSubject<string>("");
+
+  constructor() { }
 
   loadVestingContract() {
     return new window.web3.eth.Contract(
@@ -277,31 +254,28 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  changeStakingAmount(value: any) {
-    this.stakingAmount = Number(value.data);
-  }
-
   async connectToMetaMask() {
-    // if (window.ethereum) {
-    //   await window.ethereum.request({ method: 'eth_requestAccounts' }).then(
-    //     (response: any) => {
-    //       this.isConnected = true;
-    //       this.getChainId(response);
-    //     },
-    //     (error: any) => {
-    //       this.isConnected = false;
-    //     }
-    //   );
-    // } else {
-    //   return;
-    // }
-    this.blockchainService.connectToMetaMask();
+    if (window.ethereum) {
+      await window.ethereum.request({ method: 'eth_requestAccounts' }).then(
+        (response: any) => {
+          this.isConnected.next(true);
+          this.getChainId(response);
+        },
+        (error: any) => {
+          this.isConnected.next(false);
+        }
+      );
+    } else {
+      return;
+    }
   }
 
   async getChainId(userAddresses: any) {
     window.ethereum
       .request({ method: 'eth_chainId' })
       .then(async (response: any) => {
+        console.log(response);
+        this.currentNetwork.next(response);
         if (response === chainAddress) {
           this.userAddress = userAddresses[0];
           console.log(this.userAddress);
@@ -312,37 +286,28 @@ export class AdminComponent implements OnInit {
 
           this.checkUnlockAmount(this.userAddress);
           this.checkUnlockTime(this.userAddress);
-          // this.stakingMethods = await (
-          //   await this.loadStakingContract()
-          // ).methods;
-          // this.erc721Methods = await (await this.loadERC721Contract()).methods;
-          await this.checkERC721Balance();
           this.setWalletAddress();
-          this.checkStakedAmount();
 
           this.isNetworkError = false;
 
-          this.isConnected = userAddresses.length == 0 ? false : true;
+          this.isConnected.next(userAddresses.length == 0 ? false : true);
         } else if (userAddresses.length > 0) {
-          this.isConnected = userAddresses.length == 0 ? false : true;
+          this.isConnected.next(userAddresses.length == 0 ? false : true);
           this.isNetworkError = true;
         }
       });
   }
 
-  async checkERC721Balance() {
-    this.nftBalance = await this.erc721Methods
-      .balanceOf(window.web3.currentProvider.selectedAddress)
-      .call();
-  }
-
   setWalletAddress() {
     let responseString = window.web3.currentProvider.selectedAddress;
-    let splittedAddress =
+    if(responseString !== null){
+      let splittedAddress =
       responseString.substring(0, 7) +
       '...' +
       responseString.substring(responseString.length - 7);
-    this.walletAddress = splittedAddress;
+      this.walletAddress.next(splittedAddress);
+    }
+    
   }
 
   checkUnlockAmount(address: any) {
@@ -350,45 +315,24 @@ export class AdminComponent implements OnInit {
       .unLockAmount(address)
       .call()
       .then((resp: any) => {
-        this.unLockAmount = Number(resp);
-        this.unLockAmountShow = true;
+        this.unLockAmount.next(Number(resp));
+        this.unLockAmountShow.next(true);
       });
   }
 
-  checkUnlockTime(unlockTime: any) {
-    console.log(unlockTime);
+  checkUnlockTime(address: any) {
     this.vestingMethods
-      .unLockTime(unlockTime)
+      .unLockTime(address)
       .call()
       .then((resp: any) => {
         console.log(resp);
-        this.unLockTime = Number(resp);
-        this.unLockTimeShow = true;
-      });
-  }
-
-  async unstake() {
-    this.stakingMethods
-      .unstakeTokens(this.stakingAmount)
-      .send({ from: window.web3.currentProvider.selectedAddress })
-      .then(async (response: any) => {
-        this.checkStakedAmount();
-        await this.checkERC721Balance();
-      });
-  }
-
-  async stake() {
-    this.stakingMethods
-      .stakeTokens(this.stakingAmount)
-      .send({ from: window.web3.currentProvider.selectedAddress })
-      .then(async (response: any) => {
-        this.checkStakedAmount();
-        await this.checkERC721Balance();
+        this.unLockTime.next(resp);
+        this.unLockTimeShow.next(true);
       });
   }
 
   async disconnect() {
-    this.isConnected = false;
+    this.isConnected.next(false);
   }
 
   checkWalletConnected() {
@@ -400,61 +344,36 @@ export class AdminComponent implements OnInit {
     return false;
   }
 
-  // async checkAllTokenApproved() {
-  //   this.allTokenApproved = await this.erc721Methods
-  //     .isApprovedForAll(
-  //       window.web3.currentProvider.selectedAddress,
-  //       this.stakeAddress
-  //     )
-  //     .call();
-  // }
-
-  async checkEarning() {
-    this.earning = await this.stakingMethods
-      .calculateEarnings(window.web3.currentProvider.selectedAddress)
-      .call();
+  async unLockQ2() {
+    this.vestingMethods.unlockQ2().send({ from: this.userAddress });
   }
 
-  selectMax() {
-    this.stakingAmount = this.nftBalance;
+  getWalletAddress(){
+    return this.walletAddress.asObservable();
   }
 
-  changeUnStakingAmount(value: any) {
-    this.unStakingAmount = Number(value.target.value);    
+  getIsConnected(){
+    return this.isConnected.asObservable();
   }
 
-  changeUnlockTime(unlockDate: any) {
-    this.unlockTimeInput = Number(unlockDate.target.value);  
+  getUnlockAmount(){
+    return this.unLockAmount.asObservable();
   }
 
-  changeInvestorAddress(address: any) {
-    this.invAddressTouched=true;
-    this.investorAddress = address.target.value;   
+  getUnlockAmountShown(){
+    return this.unLockAmountShow.asObservable();
   }
 
-  selectMaxUnStake() {
-    this.unStakingAmount = this.stakedTokenAmount;
+  getUnlockTime(){
+    return this.unLockTime.asObservable();
   }
 
-  async checkStakedAmount() {
-    this.stakedTokenAmount = await this.stakingMethods
-      .stakedAmount(window.web3.currentProvider.selectedAddress)
-      .call();
+  getUnlockTimeShown(){
+    return this.unLockTimeShow.asObservable();
   }
 
-  withdrawEarning() {
-    this.stakingMethods
-      .stakeTokens(this.stakingAmount)
-      .send({ from: window.web3.currentProvider.selectedAddress });
-  }
-
-  isInvestorAddressValid(){
-    return Web3.utils.isAddress(this.investorAddress);
-  }
-
-  ngOnInit(): void {
-    this.blockchainService.getIsConnected().subscribe(res=>this.isConnected=res);
-    this.blockchainService.getWalletAddress().subscribe(res=>this.walletAddress = res); 
+  getCurrentNetwork(){
+    return this.currentNetwork.asObservable();
   }
 
 }

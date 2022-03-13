@@ -7,11 +7,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./account-info.component.scss']
 })
 export class AccountInfoComponent implements OnInit {
-  @Input() name="";
+  @Input() public walletAddress:any;
 
   constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit(): void {
+    console.log("Add",this.walletAddress);
+    
   }
 
 }
