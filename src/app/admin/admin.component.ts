@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { kill } from 'process';
 import Web3 from 'web3';
 import { BlockchainService } from '../service/blockchain.service';
 declare var $: any;
@@ -34,16 +35,26 @@ export class AdminComponent implements OnInit {
   }
 
   async addInvestor() {
-    this.blockchainService.addInvestor(
-      this.investorAddress,
-      this.unlockTimeInput,
-      this.unlockTokenAmount
-    );
+    this.blockchainService
+      .addInvestor(
+        this.investorAddress,
+        Math.trunc(Date.now() / 1000) + Number(this.unlockTimeInput) * 86400,
+        this.unlockTokenAmount
+      )
+      .then((_) => {
+        this.reset();
+      });
+  }
+
+  reset() {
+    this.investorAddress = '';
+    this.unlockTimeInput = 0;
+    this.unlockTokenAmount = 0;
+    this.invAddressTouched = false;
   }
 
   changeUnlockTime(event: any) {
-    this.unlockTimeInput =
-      Math.trunc(Date.now() / 1000) + Number(event.target.value) * 86400;
+    this.unlockTimeInput = Number(event.target.value);
   }
 
   changeInvestorAddress(event: any) {
