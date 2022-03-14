@@ -4,83 +4,8 @@ import Web3 from 'web3';
 declare var $: any;
 
 declare const window: any;
-const chainAddress = '0x4';
 
 const vestingAbi = [
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_token',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'manager',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: '_unLockDate',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
-    ],
-    name: 'InvestorAccountAdded',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'previousOwner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
-    name: 'OwnershipTransferred',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'manager',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
-    ],
-    name: 'WithDrawnToken',
-    type: 'event',
-  },
   {
     inputs: [
       {
@@ -100,78 +25,6 @@ const vestingAbi = [
       },
     ],
     name: 'addInvestorAccount',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'balanceOf',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'blockTimestamp',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'owner',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'token',
-    outputs: [
-      {
-        internalType: 'contract IERC20',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
-    name: 'transferOwnership',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -224,16 +77,16 @@ const vestingAbi = [
 ];
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BlockchainService {
   public timeLeft: any = { days: '', hours: '', minutes: '', seconds: '' };
   public userAddress: any;
   readonly vestingContractAddress: any =
-    '0xb1890e2C8b4c726306F5F295F86117df2EfA302b';
+    '0xf293d624da0d0cebec23f9c03acedaffc6ec934c';
   public isConnected = new BehaviorSubject<boolean>(false);
   public isNetworkError = false;
-  public walletAddress = new BehaviorSubject<string>("");   
+  public walletAddress = new BehaviorSubject<string>('');
 
   public vestingMethods: any;
 
@@ -243,9 +96,9 @@ export class BlockchainService {
   public unLockTime = new BehaviorSubject<any>(0);
   public unLockTimeShow = new BehaviorSubject<boolean>(false);
 
-  public currentNetwork = new BehaviorSubject<string>("");
+  public currentNetwork = new BehaviorSubject<string>('');
 
-  constructor() { }
+  constructor() {}
 
   loadVestingContract() {
     return new window.web3.eth.Contract(
@@ -276,7 +129,7 @@ export class BlockchainService {
       .then(async (response: any) => {
         console.log(response);
         this.currentNetwork.next(response);
-        if (response === chainAddress) {
+  
           this.userAddress = userAddresses[0];
           console.log(this.userAddress);
           this.checkWalletConnected();
@@ -291,23 +144,18 @@ export class BlockchainService {
           this.isNetworkError = false;
 
           this.isConnected.next(userAddresses.length == 0 ? false : true);
-        } else if (userAddresses.length > 0) {
-          this.isConnected.next(userAddresses.length == 0 ? false : true);
-          this.isNetworkError = true;
-        }
+        // } else if (userAddresses.length > 0) {
+        //   this.isConnected.next(userAddresses.length == 0 ? false : true);
+        //   this.isNetworkError = true;
+        // }
       });
   }
 
   setWalletAddress() {
     let responseString = window.web3.currentProvider.selectedAddress;
-    if(responseString !== null){
-      let splittedAddress =
-      responseString.substring(0, 7) +
-      '...' +
-      responseString.substring(responseString.length - 7);
-      this.walletAddress.next(splittedAddress);
+    if (responseString !== null) {
+      this.walletAddress.next(responseString);
     }
-    
   }
 
   checkUnlockAmount(address: any) {
@@ -344,36 +192,62 @@ export class BlockchainService {
     return false;
   }
 
+  toFixed(x: any) {
+    if (Math.abs(x) < 1.0) {
+      var e = parseInt(x.toString().split('e-')[1]);
+      if (e) {
+        x *= Math.pow(10, e - 1);
+        x = '0.' + new Array(e).join('0') + x.toString().substring(2);
+      }
+    } else {
+      var e = parseInt(x.toString().split('+')[1]);
+      if (e > 20) {
+        e -= 20;
+        x /= Math.pow(10, e);
+        x += new Array(e + 1).join('0');
+      }
+    }
+    return x;
+  }
+
+  async addInvestor(investorAddress: any, unlockTime: any, unlockAmount: any) {
+    unlockAmount = unlockAmount;
+    unlockAmount = this.toFixed(unlockAmount * 1e18).toString();
+    console.log(unlockAmount);
+    this.vestingMethods
+      .addInvestorAccount(investorAddress, unlockTime, unlockAmount)
+      .send({ from: this.userAddress });
+  }
+
   async unLockQ2() {
     this.vestingMethods.unlockQ2().send({ from: this.userAddress });
   }
 
-  getWalletAddress(){
+  getWalletAddress() {
     return this.walletAddress.asObservable();
   }
 
-  getIsConnected(){
+  getIsConnected() {
     return this.isConnected.asObservable();
   }
 
-  getUnlockAmount(){
+  getUnlockAmount() {
     return this.unLockAmount.asObservable();
   }
 
-  getUnlockAmountShown(){
+  getUnlockAmountShown() {
     return this.unLockAmountShow.asObservable();
   }
 
-  getUnlockTime(){
+  getUnlockTime() {
     return this.unLockTime.asObservable();
   }
 
-  getUnlockTimeShown(){
+  getUnlockTimeShown() {
     return this.unLockTimeShow.asObservable();
   }
 
-  getCurrentNetwork(){
+  getCurrentNetwork() {
     return this.currentNetwork.asObservable();
   }
-
 }

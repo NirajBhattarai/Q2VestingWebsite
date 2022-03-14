@@ -36,8 +36,8 @@
                       type="number"
                       class="form-control mb-3 px-3"
                       autocomplete="0"
-                      (change)="changeUnlockTime($event)"
                       placeholder="UnlockTime"
+                      (keyup)="changeUnlockTime($event)"
                     />
                     <input
                       type="number"
@@ -45,11 +45,11 @@
                       autocomplete="0"
                       min="1"
                       placeholder="TokenAmount"
-                      (keyup)="changeUnStakingAmount($event)"
+                      (keyup)="changeTokenAmount($event)"
                     />
                   </div>
                 </div>
-                <button (click)="stake()" class="btn px-5 custom-btn">
+                <button (click)="addInvestor()" class="btn px-5 custom-btn">
                   Add
                 </button>
               </div>
