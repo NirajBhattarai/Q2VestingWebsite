@@ -129,21 +129,19 @@ export class BlockchainService {
       .then(async (response: any) => {
         console.log(response);
         this.currentNetwork.next(response);
-  
-          this.userAddress = userAddresses[0];
-          console.log(this.userAddress);
-          this.checkWalletConnected();
-          this.vestingMethods = await (
-            await this.loadVestingContract()
-          ).methods;
 
-          this.checkUnlockAmount(this.userAddress);
-          this.checkUnlockTime(this.userAddress);
-          this.setWalletAddress();
+        this.userAddress = userAddresses[0];
+        console.log(this.userAddress);
+        this.checkWalletConnected();
+        this.vestingMethods = await (await this.loadVestingContract()).methods;
 
-          this.isNetworkError = false;
+        this.checkUnlockAmount(this.userAddress);
+        this.checkUnlockTime(this.userAddress);
+        this.setWalletAddress();
 
-          this.isConnected.next(userAddresses.length == 0 ? false : true);
+        this.isNetworkError = false;
+
+        this.isConnected.next(userAddresses.length == 0 ? false : true);
         // } else if (userAddresses.length > 0) {
         //   this.isConnected.next(userAddresses.length == 0 ? false : true);
         //   this.isNetworkError = true;
@@ -214,7 +212,7 @@ export class BlockchainService {
     unlockAmount = unlockAmount;
     unlockAmount = this.toFixed(unlockAmount * 1e18).toString();
     console.log(unlockAmount);
-    this.vestingMethods
+    return this.vestingMethods
       .addInvestorAccount(investorAddress, unlockTime, unlockAmount)
       .send({ from: this.userAddress });
   }

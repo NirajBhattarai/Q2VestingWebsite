@@ -25,6 +25,7 @@
                         class="form-control px-3"
                         autocomplete="0"
                         placeholder="Investor Account Address"
+                        [(ngModel)] = "investorAddress"
                         (keyup)="changeInvestorAddress($event)"
                       />
                       <div class="invalid-feedback text-start mx-auto px-3">
@@ -37,6 +38,7 @@
                       class="form-control mb-3 px-3"
                       autocomplete="0"
                       placeholder="UnlockTime"
+                      [(ngModel)] = "unlockTimeInput"
                       (keyup)="changeUnlockTime($event)"
                     />
                     <input
@@ -45,6 +47,7 @@
                       autocomplete="0"
                       min="1"
                       placeholder="TokenAmount"
+                      [(ngModel)] = "unlockTokenAmount"
                       (keyup)="changeTokenAmount($event)"
                     />
                   </div>
