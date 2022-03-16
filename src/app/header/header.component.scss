@@ -7,7 +7,8 @@ $accordian-hover-text-color: #38004d;
 .navbar {
   background-color: $body-bg-first-color;
   padding: 15px 15px 15px 15px;
-  font-family: "Bentto-PersonalUse";
+  font-family: "Poppins-Regular";
+  font-weight: 600;
   .navbar-brand {
     width: 22%;
     h1 {
@@ -148,7 +149,7 @@ $accordian-hover-text-color: #38004d;
   font-family: "Poppins-Regular";
   color: $body-text-color;
   background-color: #ffffff65;
-  padding-left:1rem;
+  padding-left:0;
   border-radius: 1rem;
 
   span{
